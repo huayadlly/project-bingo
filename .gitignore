@@ -25,3 +25,4 @@ src/test/
 *.iml
 target/
 project-maven/target/
+project-boot/target/
