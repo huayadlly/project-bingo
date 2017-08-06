@@ -6,6 +6,6 @@ package cn.taike;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Main Function");
+        System.out.println("Main Function Of Maven Project");
     }
 }

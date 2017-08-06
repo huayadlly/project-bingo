@@ -1,4 +1,4 @@
-package cn.taike.action;
+package cn.taike.streams;
 
 import cn.taike.entity.Dish;
 
