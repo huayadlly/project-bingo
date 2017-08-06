@@ -18,7 +18,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <mysql-connector.version>5.1.37</mysql-connector.version>
+        <mysql-connector.version>5.1.38</mysql-connector.version>
         <guava.version>19.0</guava.version>
         <dbUtils.version>1.6</dbUtils.version>
 
