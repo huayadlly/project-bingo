@@ -3,6 +3,7 @@ package cn.taike.paper.domain;
 import lombok.Data;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 
@@ -24,6 +25,8 @@ public class PaperInfoEntity {
 
     @Column
     private Long userId;
+    @Column
+    private String taskId;
 
     @Column
     private String paperId;
@@ -36,6 +39,8 @@ public class PaperInfoEntity {
     private String qas;
     @Column(columnDefinition = "TEXT")
     private String wrapInfo;
+    @Column(columnDefinition = "TEXT")
+    private String subImgKeys;
 
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createTime;
