@@ -14,10 +14,14 @@
         #{} : 相当于占位符；可以防止注入攻击；可以接受简单数据类型和pojo的属性值
         ${} : 相当于字符串拼接；不能防止注入攻击；可以接受简单数据类型或pojo类属性，如果是简单数据类型，${}中只能是value;
     -->
-
     <!--根据用户名模糊查询用户信息-->
     <select id="findUserByName" parameterType="string" resultType="cn.taike.ibatis.po.User">
         SELECT * FROM user WHERE username LIKE '%${value}%'
     </select>
+
+    <!--添加用户-->
+    <insert id="insertUser" parameterType="cn.taike.ibatis.po.User">
+        INSERT INTO user (username,birthday,sex,address) VALUE (#{username},#{birthday},#{sex},#{address})
+    </insert>
 
 </mapper>
