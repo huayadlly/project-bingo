@@ -1,53 +1,25 @@
+server.port: 8770
+
 spring:
-  profiles:
-    active: development
   datasource:
-    initialize: true
-    max-active: 20
-    max-idle: 20
-    test-on-connect: true
-    test-while-idle: true
-    validation-query: SELECT 1
-    time-between-eviction-runs-millis: 3600000
-    min-evictable-idle-time-millis: 3600000
     url: jdbc:mysql://127.0.0.1:3306/basement?useUnicode=true&characterEncoding=utf8
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
-server:
-  port: 8770
-
-
----
-spring:
-  profiles: test
-  datasource:
     initialize: true
     max-active: 20
-    max-idle: 20
-    test-on-connect: true
-    test-while-idle: true
     validation-query: SELECT 1
-    time-between-eviction-runs-millis: 3600000
-    min-evictable-idle-time-millis: 3600000
-    url: jdbc:mysql://127.0.0.1:3306/taike?useUnicode=true&characterEncoding=utf8
-    username: root
-    password: 123456
-    driver-class-name: com.mysql.jdbc.Driver
 
----
+
 spring:
-  profiles: development
-  datasource:
-    initialize: true
-    max-active: 20
-    max-idle: 20
-    test-on-connect: true
-    test-while-idle: true
-    validation-query: SELECT 1
-    time-between-eviction-runs-millis: 3600000
-    min-evictable-idle-time-millis: 3600000
-    url: jdbc:mysql://127.0.0.1:3306/basement?useUnicode=true&characterEncoding=utf8
-    username: root
-    password: 123456
-    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate.ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    hibernate.naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+
+paper.recognition:
+  callbackUrl: https://127.0.0.1:8080/basement
+  submitImageUrl: https://127.0.0.1:8090/recognisiton
+
