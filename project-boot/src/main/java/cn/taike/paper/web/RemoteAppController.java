@@ -2,6 +2,7 @@ package cn.taike.paper.web;
 
 import cn.taike.paper.context.ContextHandler;
 import cn.taike.paper.exception.TokenErrorException;
+import cn.taike.paper.protocol.ImageRecognitionResponse;
 import cn.taike.paper.service.RecognitionSubmitService;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +43,20 @@ public class RemoteAppController {
     @Data
     public static class ImageRequest {
         private String imgUrl;
+    }
+
+    // python callback after send image
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public Object recognitionResult(@RequestBody ImageRecognitionResponse response) {
+        try {
+            recognitionSubmitService.saveRecognitionResponse(response);
+            return ResponseEntity.ok();
+
+        } catch (Exception e) {
+            log.error("recognition, get recognition response error", e);
+            return ResponseEntity.badRequest().build();
+        }
+
     }
 
 

@@ -1,9 +1,11 @@
 package cn.taike.paper.handler;
 
+import cn.taike.paper.config.BingoProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
@@ -15,6 +17,9 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @Component
 public class RecognitionPaperHandler {
+
+    @Autowired
+    private BingoProperties bingoProperties;
 
     private static ObjectMapper mapper = new ObjectMapper();
 
@@ -33,7 +38,7 @@ public class RecognitionPaperHandler {
             log.debug("recognition, start send image.");
 
             // body : http请求体，必须是JSON格式
-            String body = mapper.writeValueAsString(new RequestBody(userId, taskId, imageUrl));
+            String body = mapper.writeValueAsString(new RequestBody(userId, taskId, bingoProperties.getCallbackUrl()));
 
             // heads
             HttpHeaders headers = new HttpHeaders();
@@ -43,7 +48,7 @@ public class RecognitionPaperHandler {
             HttpEntity<String> requestEntity = new HttpEntity<>(body, headers);
 
             // response
-            ResponseEntity<String> response = restTemplate.exchange("", HttpMethod.POST, requestEntity, String.class);
+            ResponseEntity<String> response = restTemplate.exchange(bingoProperties.getSubmitImageUrl(), HttpMethod.POST, requestEntity, String.class);
             log.debug("Recognition, send image success.");
 
         } catch (Exception e) {
