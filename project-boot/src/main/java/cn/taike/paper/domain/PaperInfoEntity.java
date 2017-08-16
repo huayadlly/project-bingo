@@ -1,6 +1,8 @@
 package cn.taike.paper.domain;
 
 import lombok.Data;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 
 import javax.persistence.*;
 
@@ -9,12 +11,19 @@ import javax.persistence.*;
  */
 @Data
 @Entity
-@Table(name = "paper_table")
+@Table(name = "paper_table",
+        indexes = {
+                @Index(name = "index_userId_paperId_pageId", columnList = "paperId,pageId")
+        }
+)
 public class PaperInfoEntity {
 
     @Id
     @GeneratedValue
     private Long id;
+
+    @Column
+    private Long userId;
 
     @Column
     private String paperId;
@@ -23,9 +32,14 @@ public class PaperInfoEntity {
     @Column
     private String paperName;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String qas;
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String wrapInfo;
+
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime createTime;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime updateTime;
 
 }
