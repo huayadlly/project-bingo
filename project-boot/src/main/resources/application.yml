@@ -22,4 +22,7 @@ spring:
 paper.recognition:
   callbackUrl: https://127.0.0.1:8080/basement
   submitImageUrl: https://127.0.0.1:8090/recognisiton
+  evaluationCompositionUrl: https://app.writelab.com
+  evaluationUserName: 
+  evaluationPassword: lJSaPqoxRmUCUKuU7VgsE5ht9hz5biie
 
