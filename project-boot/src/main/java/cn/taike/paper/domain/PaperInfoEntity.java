@@ -42,6 +42,10 @@ public class PaperInfoEntity {
     @Column(columnDefinition = "TEXT")
     private String subImgKeys;
 
+
+    @Column(columnDefinition = "TEXT")
+    private String compositionEvaluations;      // 作文评价
+
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createTime;
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")

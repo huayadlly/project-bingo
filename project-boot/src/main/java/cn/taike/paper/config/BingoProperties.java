@@ -19,5 +19,11 @@ public class BingoProperties {
 
     @NotNull
     private String submitImageUrl;
+    @NotNull
+    private String evaluationCompositionUrl;
+    @NotNull
+    private String evaluationUserName;
+    @NotNull
+    private String evaluationPassword;
 
 }
