@@ -1,7 +1,7 @@
 package cn.taike.paper.web;
 
-import cn.taike.paper.context.ContextHandler;
-import cn.taike.paper.exception.TokenErrorException;
+import cn.taike.paper.handler.UserTokenHandler;
+import cn.taike.bingo.exception.IllegalUserTokenException;
 import cn.taike.paper.protocol.ImageRecognitionResponse;
 import cn.taike.paper.service.RecognitionSubmitService;
 import lombok.Data;
@@ -26,12 +26,12 @@ public class RemoteAppController {
     public Object submitImage(@RequestParam(value = "access_token") String token,
                               @RequestBody ImageRequest imageRequest) {
         try {
-            Long userId = ContextHandler.exchangeToken(token);
+            Long userId = UserTokenHandler.exchangeToken(token);
             recognitionSubmitService.submit(userId, imageRequest);
             log.debug("app, submit token success.");
 
             return ResponseEntity.ok();
-        } catch (TokenErrorException e) {
+        } catch (IllegalUserTokenException e) {
             log.error("app, token error exception.", e);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         } catch (Exception e) {

@@ -1,6 +1,6 @@
 package cn.taike.paper.service;
 
-import cn.taike.paper.context.DataFormatUtils;
+import cn.taike.bingo.util.DataFormatUtils;
 import cn.taike.paper.domain.PaperInfoEntity;
 import cn.taike.paper.domain.PaperInfoEntityJpaRepository;
 import cn.taike.paper.handler.RecognitionPaperHandler;

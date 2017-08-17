@@ -1,6 +1,6 @@
 package cn.taike.paper.handler;
 
-import cn.taike.paper.config.BingoProperties;
+import cn.taike.bingo.config.BingoProperties;
 import cn.taike.paper.domain.PaperInfoEntityJpaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;

@@ -1,6 +1,6 @@
 package cn.taike.paper.handler;
 
-import cn.taike.paper.config.BingoProperties;
+import cn.taike.bingo.config.BingoProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.NoArgsConstructor;
