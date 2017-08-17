@@ -36,16 +36,16 @@ public class DataFormatUtils {
         }
     }
 
-    public static <T> T toObject(String json, Class<T> type) throws IOException {
+    public static <T> T toEntity(String json, Class<T> type) throws IOException {
         return mapper.readValue(json, type);
     }
 
-    public static <T> List<T> toListObject(String json, Class<T> T) throws IOException {
+    public static <T> List<T> toListEntity(String json, Class<T> T) throws IOException {
         JavaType javaType = mapper.getTypeFactory().constructParametricType(List.class, T);
         return mapper.readValue(json, javaType);
     }
 
-    public <K, Y> Map<K, Y> toMapObject(String json, Class<K> keyType, Class<Y> valueType) throws IOException {
+    public <K, Y> Map<K, Y> toMapEntity(String json, Class<K> keyType, Class<Y> valueType) throws IOException {
         JavaType javaType = mapper.getTypeFactory().constructParametricType(Map.class, keyType, valueType);
         return mapper.readValue(json, javaType);
     }

@@ -12,7 +12,22 @@ import org.springframework.stereotype.Component;
 public class UserTokenHandler {
 
     public static Long exchangeToken(String token) throws IllegalUserTokenException {
-        return Long.valueOf(token);
+        try {
+            return new Long(token);
+
+        } catch (IllegalArgumentException e) {  // assert it's illegalUserTokenException
+            switch (e.getMessage()) {
+                case "404":
+                    log.warn("User token handler, user token not found.");
+                    throw new IllegalUserTokenException(e.toString());
+                default:
+                    log.error("User token handler, user token error.", e);
+                    throw e;
+            }
+        } catch (Exception e) {
+            log.error("User token handler, user token error.", e);
+            throw e;
+        }
     }
 
 

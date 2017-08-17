@@ -3,6 +3,7 @@ package cn.taike.paper.service;
 import cn.taike.bingo.util.DataFormatUtils;
 import cn.taike.paper.domain.PaperInfoEntity;
 import cn.taike.paper.domain.PaperInfoEntityJpaRepository;
+import cn.taike.paper.handler.CompositionEvaluationHandler;
 import cn.taike.paper.handler.RecognitionPaperHandler;
 import cn.taike.paper.protocol.ImageRecognitionResponse;
 import cn.taike.paper.web.RemoteAppController;
@@ -23,6 +24,8 @@ public class RecognitionSubmitService {
     private RecognitionPaperHandler recognitionPaperHandler;
     @Autowired
     private PaperInfoEntityJpaRepository paperInfoEntityJpaRepository;
+    @Autowired
+    private CompositionEvaluationHandler compositionEvaluationHandler;
 
     public void submit(Long userId, RemoteAppController.ImageRequest imageRequest) {
         String taskId = UUID.randomUUID().toString();
@@ -45,7 +48,8 @@ public class RecognitionSubmitService {
 
             paperInfoEntityJpaRepository.save(paperInfoEntity);
 
-            // TODO publish event
+            // invoke evaluation composition
+            compositionEvaluationHandler.submitComposition(response.getUser_id(), response.getPaper_id(), response.getPage_id(), "text");
 
         } else {
             // save
@@ -64,7 +68,8 @@ public class RecognitionSubmitService {
 
             paperInfoEntityJpaRepository.save(entity);
 
-            // TODO publish event
+            // invoke evaluation composition
+            compositionEvaluationHandler.submitComposition(response.getUser_id(), response.getPaper_id(), response.getPage_id(), "text");
         }
     }
 }

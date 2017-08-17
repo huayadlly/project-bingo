@@ -38,7 +38,7 @@ public class RecognitionPaperHandler {
             log.debug("recognition, start send image.");
 
             // body : http请求体，必须是JSON格式
-            String body = mapper.writeValueAsString(new RequestBody(userId, taskId, bingoProperties.getCallbackUrl()));
+            String body = mapper.writeValueAsString(new RequestBody(userId, taskId, imageUrl, bingoProperties.getCallbackUrl()));
 
             // heads
             HttpHeaders headers = new HttpHeaders();
@@ -49,7 +49,7 @@ public class RecognitionPaperHandler {
 
             // response
             ResponseEntity<String> response = restTemplate.exchange(bingoProperties.getSubmitImageUrl(), HttpMethod.POST, requestEntity, String.class);
-            log.debug("Recognition, send image success.");
+            log.debug("Recognition, send image success.", response.getBody());
 
         } catch (Exception e) {
             log.error("Recognition, submit image error.", e);
@@ -62,11 +62,13 @@ public class RecognitionPaperHandler {
         private Long userId;
         private String taskId;
         private String imageUrl;
+        private String callbackUrl;
 
-        public RequestBody(Long userId, String taskId, String imageUrl) {
+        public RequestBody(Long userId, String taskId, String imageUrl, String callbackUrl) {
             this.userId = userId;
             this.taskId = taskId;
             this.imageUrl = imageUrl;
+            this.callbackUrl = callbackUrl;
         }
     }
 

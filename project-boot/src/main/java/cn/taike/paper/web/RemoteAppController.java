@@ -21,7 +21,7 @@ public class RemoteAppController {
     @Autowired
     private RecognitionSubmitService recognitionSubmitService;
 
-    // 处理app提交图片url
+    // app submit img url
     @RequestMapping(value = "/paper/recognition/img", method = RequestMethod.POST)
     public Object submitImage(@RequestParam(value = "access_token") String token,
                               @RequestBody ImageRequest imageRequest) {
@@ -29,8 +29,8 @@ public class RemoteAppController {
             Long userId = UserTokenHandler.exchangeToken(token);
             recognitionSubmitService.submit(userId, imageRequest);
             log.debug("app, submit token success.");
-
             return ResponseEntity.ok();
+
         } catch (IllegalUserTokenException e) {
             log.error("app, token error exception.", e);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -46,7 +46,7 @@ public class RemoteAppController {
     }
 
     // python callback after send image
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @RequestMapping(value = "/paper/recognition/result", method = RequestMethod.POST)
     public Object recognitionResult(@RequestBody ImageRecognitionResponse response) {
         try {
             recognitionSubmitService.saveRecognitionResponse(response);
