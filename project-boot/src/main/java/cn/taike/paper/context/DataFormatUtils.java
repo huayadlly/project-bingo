@@ -10,6 +10,7 @@ import com.fasterxml.jackson.datatype.joda.JodaModule;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by huayadlly on 2017/8/16.
@@ -35,21 +36,18 @@ public class DataFormatUtils {
         }
     }
 
-    public static <T> T toObjectNoException(String json, Class<T> type) {
-        try {
-            return mapper.readValue(json, type);
-        } catch (IOException e) {
-            return null;
-        }
+    public static <T> T toObject(String json, Class<T> type) throws IOException {
+        return mapper.readValue(json, type);
     }
 
-    public static List<?> toListObjectNoException(String json, Class<?> T) {
-        try {
-            JavaType javaType = mapper.getTypeFactory().constructParametricType(List.class, T);
-            return (List<?>) mapper.readValue(json, javaType);
-        } catch (IOException e) {
-            return null;
-        }
+    public static <T> List<T> toListObject(String json, Class<T> T) throws IOException {
+        JavaType javaType = mapper.getTypeFactory().constructParametricType(List.class, T);
+        return mapper.readValue(json, javaType);
+    }
+
+    public <K, Y> Map<K, Y> toMapObject(String json, Class<K> keyType, Class<Y> valueType) throws IOException {
+        JavaType javaType = mapper.getTypeFactory().constructParametricType(Map.class, keyType, valueType);
+        return mapper.readValue(json, javaType);
     }
 
 }
