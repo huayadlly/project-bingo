@@ -2,10 +2,12 @@ package cn.taike.paper.handler;
 
 import cn.taike.bingo.config.BingoProperties;
 import cn.taike.bingo.util.DataFormatUtils;
+import cn.taike.paper.domain.PaperInfoEntity;
 import cn.taike.paper.domain.PaperInfoEntityJpaRepository;
 import cn.taike.paper.protocol.CompositionEvaluations;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
+import org.joda.time.DateTime;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 
 /**
@@ -44,7 +47,7 @@ public class CompositionEvaluationHandler {
                 .build();
     }
 
-    // invoke evaluation composition
+    // invoke evaluation composition method
     public void submitComposition(Long userId, String paperId, String pageId, String text) {
         try {
             // body
@@ -107,6 +110,12 @@ public class CompositionEvaluationHandler {
             CompositionEvaluations result = handHtml(compositionEvaluations);
 
             // save result
+            Optional<PaperInfoEntity> optional = paperInfoEntityJpaRepository.findByUserIdAndPaperIdAndPageId(userId, paperId, pageId);
+            if(optional.isPresent()){
+                PaperInfoEntity entity = optional.get();
+                entity.setCompositionEvaluations(result.toJson());
+                entity.setUpdateTime(DateTime.now());
+            }
 
         } catch (Exception e) {
             log.error("confirm evaluation, confirm evaluation result error.", e);

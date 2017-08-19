@@ -3,6 +3,7 @@ package cn.taike.paper.domain;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -13,4 +14,5 @@ public interface PaperInfoEntityJpaRepository extends JpaRepository<PaperInfoEnt
 
     Optional<PaperInfoEntity> findByUserIdAndPaperIdAndPageId(Long userId, String paperId, String pageId);
 
+    List<PaperInfoEntity> findByUserId(Long userId);
 }

@@ -1,5 +1,6 @@
 package cn.taike.paper.protocol;
 
+import cn.taike.bingo.util.BeanToJson;
 import com.google.common.collect.Lists;
 import lombok.Data;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Created by huayadlly on 2017/8/18.
  */
 @Data
-public class CompositionEvaluations {
+public class CompositionEvaluations implements BeanToJson {
 
     private Metrics metrics;
     private Assessments assessments;

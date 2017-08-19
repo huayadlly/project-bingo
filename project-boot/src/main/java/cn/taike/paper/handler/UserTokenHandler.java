@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserTokenHandler {
 
-    public static Long exchangeToken(String token) throws IllegalUserTokenException {
+    public  Long exchangeToken(String token) throws IllegalUserTokenException {
         try {
             return new Long(token);
 

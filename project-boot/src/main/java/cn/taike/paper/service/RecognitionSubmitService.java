@@ -7,10 +7,12 @@ import cn.taike.paper.handler.CompositionEvaluationHandler;
 import cn.taike.paper.handler.RecognitionPaperHandler;
 import cn.taike.paper.protocol.ImageRecognitionResponse;
 import cn.taike.paper.web.RemoteAppController;
+import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -71,5 +73,45 @@ public class RecognitionSubmitService {
             // invoke evaluation composition
             compositionEvaluationHandler.submitComposition(response.getUser_id(), response.getPaper_id(), response.getPage_id(), "text");
         }
+    }
+
+    // get paper list
+    public List<RemoteAppController.ResponseList> getList(Long userId) {
+
+        List<RemoteAppController.ResponseList> resultList = Lists.newArrayList();
+        List<PaperInfoEntity> list = paperInfoEntityJpaRepository.findByUserId(userId);
+        list.forEach(paperInfoEntity -> {
+            RemoteAppController.ResponseList response = new RemoteAppController.ResponseList();
+
+            response.setUser_id(userId);
+            response.setPaper_id(paperInfoEntity.getPaperId());
+            response.setPage_id(paperInfoEntity.getPageId());
+            response.setPaper_name(paperInfoEntity.getPaperName());
+
+            resultList.add(response);
+        });
+        return resultList;
+
+    }
+
+    // get paper list
+    public RemoteAppController.ResponseToApp getCompositionDetail(Long userId, RemoteAppController.ResponseList request) {
+
+        RemoteAppController.ResponseToApp response = new RemoteAppController.ResponseToApp();
+        RemoteAppController.ResponseList res = new RemoteAppController.ResponseList();
+        Optional<PaperInfoEntity> optional = paperInfoEntityJpaRepository.findByUserIdAndPaperIdAndPageId(userId, request.getPaper_id(), request.getPage_id());
+        if (optional.isPresent()) {
+            PaperInfoEntity entity = optional.get();
+
+            res.setUser_id(userId);
+            res.setPaper_id(request.getPaper_id());
+            res.setPage_id(request.getPage_id());
+            res.setPaper_name(entity.getPaperName());
+
+            response.setResponse(res);
+            response.setEvaluation(entity.getCompositionEvaluations());
+            response.setUpdate_time(entity.getUpdateTime().toString());
+        }
+        return response;
     }
 }
