@@ -1,8 +1,7 @@
-package cn.taike.web;
+package cn.taike.older.web;
 
-import cn.taike.entity.Book;
-import cn.taike.jpa.BookJpaRepository;
-import org.omg.CORBA.PUBLIC_MEMBER;
+import cn.taike.older.domain.BookEntity;
+import cn.taike.older.domain.BookEntityJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,11 +20,11 @@ import java.util.List;
 public class WebController {
 
     @Autowired
-    private BookJpaRepository bookJpaRepository;
+    private BookEntityJpaRepository bookEntityJpaRepository;
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public Object get() {
-        long count = bookJpaRepository.count();
+        long count = bookEntityJpaRepository.count();
         System.out.println("记录数:" + count);
         return count;
     }
@@ -36,7 +35,7 @@ public class WebController {
 
         Pageable pageable = new PageRequest(4, 4, new Sort(Sort.Direction.DESC, "bookName"));
 
-        Page<Book> bookPage = bookJpaRepository.findAll(pageable);
+        Page<BookEntity> bookPage = bookEntityJpaRepository.findAll(pageable);
         int totalPages = bookPage.getTotalPages();//总页数
         int number = bookPage.getNumber();//当前分页查询的页数
         long totalElements = bookPage.getTotalElements();//表中数据总个数
@@ -44,8 +43,8 @@ public class WebController {
         int numberOfElements = bookPage.getNumberOfElements();
         int size = bookPage.getSize();
 
-        List<Book> bookList = bookPage.getContent();
+        List<BookEntity> bookEntityList = bookPage.getContent();
 
-        return bookList;
+        return bookEntityList;
     }
 }
