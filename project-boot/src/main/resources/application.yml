@@ -1,18 +1,17 @@
 server.port: 8770
 
-spring:
-  datasource:
+spring.data.mongodb.uri: mongodb://localhost:27017/basement
+
+spring.datasource:
+    driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/basement?useUnicode=true&characterEncoding=utf8
     username: root
     password: 123456
-    driver-class-name: com.mysql.jdbc.Driver
     initialize: true
     max-active: 20
     validation-query: SELECT 1
 
-
-spring:
-  jpa:
+spring.jpa:
     show-sql: true
     generate-ddl: true
     hibernate.ddl-auto: update
@@ -23,6 +22,6 @@ paper.recognition:
   callbackUrl: https://127.0.0.1:8080/basement
   submitImageUrl: https://127.0.0.1:8090/recognisiton
   evaluationCompositionUrl: https://app.writelab.com
-  evaluationUserName: 
+  evaluationUserName: abce_name
   evaluationPassword: lJSaPqoxRmUCUKuU7VgsE5ht9hz5biie
 
