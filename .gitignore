@@ -26,3 +26,7 @@ src/test/
 target/
 project-maven/target/
 project-boot/target/
+mq-producer/mq-producer.iml
+mq-producer/mvnw
+mq-producer/mvnw.cmd
+mq-producer/.mvn
