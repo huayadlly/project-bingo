@@ -30,3 +30,7 @@ mq-producer/mq-producer.iml
 mq-producer/mvnw
 mq-producer/mvnw.cmd
 mq-producer/.mvn
+mq-consumer/.mvn
+mq-consumer/mvnw
+mq-consumer/mvnw.cmd
+mq-consumer/mq-consumer.iml
