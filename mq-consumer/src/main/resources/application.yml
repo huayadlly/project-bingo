@@ -1,15 +1,19 @@
+server.port: 8081
+
+logging.level.root: INFO
+
 spring:
   activemq:
     broker-url: tcp://192.168.75.129:61616
+
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/basement?useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://192.168.75.129:3306/bingo?useUnicode=true&characterEncoding=utf8
     username: root
     password: MyNewPassword0080!
     initialize: true
     max-active: 20
     validation-query: SELECT 1
-
 
   jpa:
     show-sql: true

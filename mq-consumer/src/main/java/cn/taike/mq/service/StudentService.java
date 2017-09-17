@@ -1,7 +1,7 @@
 package cn.taike.mq.service;
 
 import cn.taike.mq.domain.StudentEntity;
-import cn.taike.mq.domain.StudentJpaRepository;
+import cn.taike.mq.domain.StudentRepository;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.util.Optional;
 public class StudentService {
 
     @Autowired
-    private StudentJpaRepository studentJpaRepository;
+    private StudentRepository studentJpaRepository;
 
     // 保存
     public void saveStudent(String studentId) {
@@ -24,6 +24,7 @@ public class StudentService {
         if (optEntity.isPresent()) {
 
             StudentEntity studentEntity = optEntity.get();
+            studentEntity.setCollegeName("河南理工大学");
             studentEntity.setUpdateTime(DateTime.now());
 
             studentJpaRepository.save(studentEntity);

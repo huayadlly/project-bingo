@@ -5,15 +5,19 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * Created by huayadlly on 2017/9/16.
  */
 @Data
 @Entity
-@Table(name = "table_student", indexes = {@Index(name = "index_userId_userName", columnList = "userId,userName", unique = true)})
-public class StudentEntity implements Serializable {
+@Table(name = "table_student",
+        indexes = {@Index(name = "index_studentId_studentName",
+                columnList = "studentId,studentName",
+                unique = true)
+        }
+)
+public class StudentEntity {
 
     @Id
     @GeneratedValue
